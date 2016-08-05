@@ -7,7 +7,7 @@ use Mix.Config
 
 # Configures the endpoint
 config :hellow, Hellow.Endpoint,
-  url: [host: "localhost"],
+  url: [host: "schleumer-phoenix.us-west-2.elasticbeanstalk.com"],
   check_origin: false,
   secret_key_base: "DzrOIUxmqRLni/4GbEL+YGMWJvrEKBzGpHrF52dJtAESdRXJGKK6jXx0o/2e+Zrg",
   render_errors: [view: Hellow.ErrorView, accepts: ~w(html json)],
