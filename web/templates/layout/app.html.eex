@@ -12,6 +12,9 @@
     <link rel="stylesheet" href="<%= static_path(@conn, "/vendor/bootstrap.css") %>">
     <link rel="stylesheet" href="<%= static_path(@conn, "/vendor/bootstrap-theme.min.css") %>">
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
+    <script type="text/javascript">
+        window.CHANNEL_USER_ID = "<%= @user_id %>";
+    </script>
   </head>
 
   <body>
@@ -27,6 +30,13 @@
           </button>
           <a class="navbar-brand" href="#">Phoenix Chat</a>
         </div>
+        <ul class="nav navbar-nav pull-right">
+            <li>
+                <p class="navbar-btn">
+                    <a class="btn btn-primary" id="send-via-ajax">SEND VIA AJAX</a>
+                </p>
+            </li>
+        </ul>
       </div>
     </div>
 

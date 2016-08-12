@@ -5,7 +5,7 @@ defmodule Hellow.Router do
     plug :accepts, ["html"]
     plug :fetch_session
     plug :fetch_flash
-    plug :protect_from_forgery
+    #plug :protect_from_forgery
     plug :put_secure_browser_headers
   end
 
@@ -17,6 +17,7 @@ defmodule Hellow.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
+    post "/send-via-ajax", PageController, :send_via_ajax
   end
 
   # Other scopes may use custom stacks.

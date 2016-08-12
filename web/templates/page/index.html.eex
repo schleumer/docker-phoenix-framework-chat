@@ -1,4 +1,12 @@
 <div id="messages" class="container">
+    <br />
+    <div class="well well-sm">
+        You can send via curl:
+        <pre>curl -X POST "http://<%= Map.get(@conn, :host) %>:<%= Map.get(@conn, :port) %>/send-via-ajax"</pre>
+
+        NO WAY, SOMEONE TOLD ME YOU CAN CHAT THROUGH TELNET TOO
+        <pre>telnet <%= Map.get(@conn, :host) %> 6666</pre>
+    </div>
 </div>
 <div id="footer">
   <div class="container">

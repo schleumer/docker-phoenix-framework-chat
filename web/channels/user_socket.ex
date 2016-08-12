@@ -6,9 +6,11 @@ defmodule Hellow.UserSocket do
   transport :websocket, Phoenix.Transports.WebSocket
   transport :longpoll, Phoenix.Transports.LongPoll
 
-  def connect(_params, socket) do
-    {:ok, socket}
+  def connect(%{"user_id" => user}, socket) do
+    {:ok, assign(socket, :user_id, user)}
   end
 
-  def id(_socket), do: nil
+  def id(socket) do
+    "user:#{socket.assigns[:user_id]}"
+  end
 end

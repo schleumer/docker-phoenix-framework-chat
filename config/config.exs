@@ -7,11 +7,18 @@ use Mix.Config
 
 # Configures the endpoint
 config :hellow, Hellow.Endpoint,
-  url: [host: "schleumer-phoenix.us-west-2.elasticbeanstalk.com"],
+  url: [host: "schleumer-phoenix.us-west-2.elasticbeanstalk.com", host: "localhost"],
   check_origin: false,
   secret_key_base: "DzrOIUxmqRLni/4GbEL+YGMWJvrEKBzGpHrF52dJtAESdRXJGKK6jXx0o/2e+Zrg",
   render_errors: [view: Hellow.ErrorView, accepts: ~w(html json)],
   pubsub: [name: Hellow.PubSub,
+           adapter: Phoenix.PubSub.PG2]
+
+config :hellow, Hellow.WebsocketEndpoint,
+  url: [host: "schleumer-phoenix.us-west-2.elasticbeanstalk.com", port: 8181],
+  check_origin: false,
+  secret_key_base: "DzrOIUxmqRLni/4GbEL+YGMWJvrEKBzGpHrF52dJtAESdRXJGKK6jXx0o/2e+Zrg",
+  pubsub: [name: Hellow.WebsocketPubSub,
            adapter: Phoenix.PubSub.PG2]
 
 # Configures Elixir's Logger

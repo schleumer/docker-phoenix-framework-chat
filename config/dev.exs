@@ -13,6 +13,13 @@ config :hellow, Hellow.Endpoint,
   check_origin: false,
   watchers: []
 
+config :hellow, Hellow.WebsocketEndpoint,
+   http: [port: 8181],
+   debug_errors: true,
+   code_reloader: true,
+   check_origin: false,
+   watchers: []
+
 
 # Watch static and templates for browser reloading.
 config :hellow, Hellow.Endpoint,

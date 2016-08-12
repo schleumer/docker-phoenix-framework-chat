@@ -10,8 +10,10 @@ defmodule Hellow do
     children = [
       # Start the endpoint when the application starts
       supervisor(Hellow.Endpoint, []),
-      # Start your own worker by calling: Hellow.Worker.start_link(arg1, arg2, arg3)
-      # worker(Hellow.Worker, [arg1, arg2, arg3]),
+      # Start websocket endpoint
+      supervisor(Hellow.WebsocketEndpoint, []),
+
+      worker(Task, [Hellow.TcpChannel, :init, []])
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
@@ -24,6 +26,7 @@ defmodule Hellow do
   # whenever the application is updated.
   def config_change(changed, _new, removed) do
     Hellow.Endpoint.config_change(changed, removed)
+    Hellow.WebsocketEndpoint.config_change(changed, removed)
     :ok
   end
 end

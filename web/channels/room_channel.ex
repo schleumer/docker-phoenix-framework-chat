@@ -11,7 +11,7 @@ defmodule Hellow.RoomChannel do
   """
   def join("rooms:lobby", message, socket) do
     Process.flag(:trap_exit, true)
-    :timer.send_interval(10000, :ping)
+
     send(self, {:after_join, message})
 
     {:ok, socket}
@@ -26,8 +26,13 @@ defmodule Hellow.RoomChannel do
     push socket, "join", %{status: "connected"}
     {:noreply, socket}
   end
+
   def handle_info(:ping, socket) do
     push socket, "new:msg", %{user: "SYSTEM", body: "ping"}
+    {:noreply, socket}
+  end
+
+  def handle_info(any, socket) do
     {:noreply, socket}
   end
 
@@ -37,7 +42,35 @@ defmodule Hellow.RoomChannel do
   end
 
   def handle_in("new:msg", msg, socket) do
-    broadcast! socket, "new:msg", %{user: msg["user"], body: msg["body"]}
+    broadcast! socket, "new:msg", %{
+      user: msg["user"],
+      body: msg["body"],
+      me: socket.assigns.user_id
+    }
+
+#    case msg["user"] do
+#      "" -> push socket, "new:msg", %{user: "SYSTEM", body: "Username is required"}
+#      nil -> push socket, "new:msg", %{user: "SYSTEM", body: "Username is required"}
+#      _ -> broadcast! socket, "new:msg", %{user: msg["user"], body: msg["body"]}
+#    end
+
     {:reply, {:ok, %{msg: msg["body"]}}, assign(socket, :user, msg["user"])}
   end
+
+#  intercept ["new:msg"]
+#
+#  def handle_out("new:msg", msg = %{"only": user_id, "me": me}, socket) do
+#    IO.inspect msg
+#
+#    if user_id == socket.assigns.user_id or socket.assigns.user_id == me do
+#      push socket, "new:msg", msg
+#    end
+#
+#    {:noreply, socket}
+#  end
+#
+#  def handle_out(any, msg, socket) do
+#    push socket, "new:msg", msg
+#    {:noreply, socket}
+#  end
 end

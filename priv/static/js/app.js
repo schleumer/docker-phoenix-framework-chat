@@ -62,6 +62,8 @@
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+	var me = window.CHANNEL_USER_ID;
+
 	var App = function () {
 	  function App() {
 	    _classCallCheck(this, App);
@@ -72,13 +74,13 @@
 	    value: function init() {
 	      var _this = this;
 
-	      var socket = new _phoenix.Socket("/socket", {
+	      var socket = new _phoenix.Socket("ws://" + location.hostname + ":8181/socket", {
 	        logger: function logger(kind, msg, data) {
 	          console.log(kind + ": " + msg, data);
 	        }
 	      });
 
-	      socket.connect({ user_id: "123" });
+	      socket.connect({ user_id: me });
 	      var $status = (0, _jquery2.default)("#status");
 	      var $messages = (0, _jquery2.default)("#messages");
 	      var $input = (0, _jquery2.default)("#message-input");
@@ -120,15 +122,32 @@
 	        scrollTo(0, document.body.scrollHeight);
 	      });
 
+	      chan.on("new:msg:" + me, function (msg) {
+	        $messages.append(_this.privateMessageTemplate(msg));
+	        scrollTo(0, document.body.scrollHeight);
+	      });
+
 	      chan.on("user:entered", function (msg) {
 	        var username = _this.sanitize(msg.user || "anonymous");
 	        $messages.append("<br/><i>[" + username + " entered]</i>");
+	      });
+
+	      (0, _jquery2.default)("#send-via-ajax").click(function () {
+	        _jquery2.default.post("/send-via-ajax");
 	      });
 	    }
 	  }, {
 	    key: "sanitize",
 	    value: function sanitize(html) {
 	      return (0, _jquery2.default)("<div/>").text(html).html();
+	    }
+	  }, {
+	    key: "privateMessageTemplate",
+	    value: function privateMessageTemplate(msg) {
+	      var username = this.sanitize(msg.user || "anonymous");
+	      var body = this.sanitize(msg.body);
+
+	      return "<p><a href='#'>[private][" + username + "]</a>&nbsp; " + body + "</p>";
 	    }
 	  }, {
 	    key: "messageTemplate",
