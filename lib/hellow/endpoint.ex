@@ -17,6 +17,8 @@ defmodule Hellow.Endpoint do
     plug Phoenix.CodeReloader
   end
 
+  plug Hellow.RequestTime
+
   plug Plug.RequestId
   plug Plug.Logger
 

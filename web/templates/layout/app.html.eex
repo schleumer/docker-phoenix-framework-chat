@@ -30,6 +30,9 @@
           </button>
           <a class="navbar-brand" href="#">Phoenix Chat</a>
         </div>
+        <p class="navbar-text">
+          Rendered in: <%= Hellow.RequestTime.calculate_time(@conn) %>
+        </p>
         <ul class="nav navbar-nav pull-right">
             <li>
                 <p class="navbar-btn">

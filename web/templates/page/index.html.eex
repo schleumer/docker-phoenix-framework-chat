@@ -6,6 +6,8 @@
 
         NO WAY, SOMEONE TOLD ME YOU CAN CHAT THROUGH TELNET TOO
         <pre>telnet <%= Map.get(@conn, :host) %> 6666</pre>
+
+        I told you that i'm running without nginx/apache/lighttpd? Yeah, this is a pure built-in http server. Do you even? <a href="http://www.phoenixframework.org/blog/the-road-to-2-million-websocket-connections">The Road to 2 Million Websocket Connections in Phoenix</a>
     </div>
 </div>
 <div id="footer">
