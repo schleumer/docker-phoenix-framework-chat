@@ -1,3 +1,7 @@
+I'm trying to figure how to map ports on EBS, at this moment I have no idea how to do this. So I moved my demo to Digital Ocean(using Docker).
+
+Also, there's a WebSocket problem when client requests are passing through proxies, then I made WebSocket requests go through port 8181, which I have no idea how to make it work on EBS.
+
 # Hellow
 
 To start your Phoenix app:
