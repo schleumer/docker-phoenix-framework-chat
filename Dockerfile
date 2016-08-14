@@ -15,8 +15,6 @@ ADD . .
 RUN MIX_ENV=prod mix compile
 RUN MIX_ENV=prod mix phoenix.digest
 
-EXPOSE 4000
-EXPOSE 8181
-EXPOSE 6666
+EXPOSE 4000 8181 6666
 
 CMD PORT=4000 MIX_ENV=prod mix phoenix.server
