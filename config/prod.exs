@@ -13,8 +13,13 @@ use Mix.Config
 # which you typically run after static files are built.
 config :hellow, Hellow.Endpoint,
   http: [port: {:system, "PORT"}],
-  url: [host: "example.com", port: 80],
+  url: [port: 80],
   cache_static_manifest: "priv/static/manifest.json"
+
+config :hellow, Hellow.WebsocketEndpoint,
+   http: [port: 8181],
+   url: [port: 8181],
+   check_origin: false
 
 # Do not print debug messages in production
 config :logger, level: :info
